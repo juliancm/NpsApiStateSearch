@@ -147,12 +147,26 @@ function displaySearchResultsClick () {
     $('.stateSearch').on('click', function(event) {
         event.preventDefault();
           let stateInput = $('#stateDropdown').val();
+          let stateInputTEEEEMMMMMPPPPP = stateInputGenerator();
+          console.log(stateInputTEEEEMMMMMPPPPP);
           let numResultsInput = $('#numResults').val();
-            getJson(stateInput, numResultsInput);
-            console.log(stateInput);
+            getJson(stateInput, numResultsInput)
     });
 }
 
+function stateInputGenerator() {
+  let stateInputArray = [];
+  stateInputArray.push($('#stateDropdown').val());
+  console.log(numStates);
+  if (numStates=1){
+
+    for (let i=1; i<=numStates; i++) {
+      stateInputArray.push($('#stateDropdown'+i).val()); /*does the contencation i want it to*/
+    }
+  }
+
+  return stateInputArray;
+}
 
 function getJson (stateInput, numResultsInput) {
 
