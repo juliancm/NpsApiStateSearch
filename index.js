@@ -94,6 +94,7 @@ function constStateSearch () {
             </select>
             <button type="submit" class="addState">Add State</button>
           <button type="submit" class="stateSearch">Search</button>
+          <button type="submit" class="resetInput">Reset</button>
         </fieldset>
       </form>
       <div class='displaySearchResultsArea'></div>
@@ -110,27 +111,36 @@ apiKey = 'kDkPfS91teEOvc0laDYv2erETG7K3DX8MxDxagyn'
 
 https://developer.nps.gov/api/v1/parks?stateCode=FL%2C%20GA&limit=10&api_key=kDkPfS91teEOvc0laDYv2erETG7K3DX8MxDxagyn */
 
-function addStateClick () {
+let numStates = 1
+
+function addStateClick (numStates) {
   $('.addState').on('click', function(event) {
     event.preventDefault();
       let inputString ="";
 
       inputString += `
-        <label for="stateDropdown2"></label>
-          <select id="stateDropdown2">
+        <div><label for="stateDropdown${numStates}">Which State?</label>
+          <select id="stateDropdown${numStates}">
       `
 
       for (let i=0;i<usStates.length;i++) {
         inputString += `<option value="${usStates[i].abbreviation}">${usStates[i].name}</option>`
       };
 
-      inputString += `</select>`
+      inputString += `</select></div>`
 
       $('.addStateArea').append(inputString);
+      numStates++;
     });
 }
 
-
+function resetInput() {
+  $('.resetInput').on('click', function(event) {
+    event.preventDefault();
+    $('.container').empty();
+    constStateSearch();
+  });
+}
 
 function displaySearchResultsClick () {
 
@@ -178,5 +188,5 @@ function displayJson (responseJson) {
 
 
 constStateSearch();
-addStateClick();
+addStateClick(numStates);
 displaySearchResultsClick ();
