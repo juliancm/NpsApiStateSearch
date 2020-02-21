@@ -86,7 +86,7 @@ function constStateSearch () {
 
     inputString += `<option value="10" selected>10</option>`
 
-    for (let i=11;i<31;i++) {
+    for (let i=11;i<51;i++) {
       inputString += `<option value="${i}">${i}</option>`
     };
 
@@ -107,13 +107,9 @@ function constStateSearch () {
 
 apiKey = 'kDkPfS91teEOvc0laDYv2erETG7K3DX8MxDxagyn'
 
-/* https://developer.nps.gov/api/v1/parks?stateCode=FL%2C%20GA&limit=10
+let numStates = 2
 
-https://developer.nps.gov/api/v1/parks?stateCode=FL%2C%20GA&limit=10&api_key=kDkPfS91teEOvc0laDYv2erETG7K3DX8MxDxagyn */
-
-let numStates = 1
-
-function addStateClick (numStates) {
+function addStateClick () {
   $('.addState').on('click', function(event) {
     event.preventDefault();
       let inputString ="";
@@ -146,29 +142,27 @@ function displaySearchResultsClick () {
 
     $('.stateSearch').on('click', function(event) {
         event.preventDefault();
-          let stateInput = $('#stateDropdown').val();
-          let stateInputTEEEEMMMMMPPPPP = stateInputGenerator();
-          console.log(stateInputTEEEEMMMMMPPPPP);
+          let stateInput = stateInputGenerator();
           let numResultsInput = $('#numResults').val();
-            getJson(stateInput, numResultsInput)
+          getJson(stateInput, numResultsInput);
     });
 }
 
 function stateInputGenerator() {
   let stateInputArray = [];
   stateInputArray.push($('#stateDropdown').val());
-  console.log(numStates);
-  if (numStates=1){
-
-    for (let i=1; i<=numStates; i++) {
+  if (numStates!=2){
+    for (let i=2; i<numStates; i++) { /* numStates is incremented after DOM mod, count will be 1 higher */
       stateInputArray.push($('#stateDropdown'+i).val()); /*does the contencation i want it to*/
     }
   }
 
-  return stateInputArray;
+  return stateInputArray.join('%2C');
 }
 
 function getJson (stateInput, numResultsInput) {
+
+  console.log(`https://developer.nps.gov/api/v1/parks?stateCode=${stateInput}&limit=${numResultsInput}&api_key=${apiKey}`)
 
   fetch(`https://developer.nps.gov/api/v1/parks?stateCode=${stateInput}&limit=${numResultsInput}&api_key=${apiKey}`)
     .then(response => {
@@ -202,5 +196,5 @@ function displayJson (responseJson) {
 
 
 constStateSearch();
-addStateClick(numStates);
+addStateClick();
 displaySearchResultsClick ();
