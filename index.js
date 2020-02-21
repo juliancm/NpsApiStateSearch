@@ -76,6 +76,7 @@ function constStateSearch () {
 
     inputString += `
             </select>
+            <div class='addStateArea'></div>
             <label for="numResults">NumberofResults?</label>
               <select id="numResults">
     `
@@ -91,7 +92,6 @@ function constStateSearch () {
 
     inputString += `
             </select>
-            <div class='addStateArea'></div>
             <button type="submit" class="addState">Add State</button>
           <button type="submit" class="stateSearch">Search</button>
         </fieldset>
