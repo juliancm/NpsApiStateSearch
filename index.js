@@ -144,6 +144,7 @@ function displaySearchResultsClick () {
         event.preventDefault();
           let stateInput = stateInputGenerator();
           let numResultsInput = $('#numResults').val();
+          $('.displaySearchResultsArea').html(`<p>Please Wait</p>`);
           getJson(stateInput, numResultsInput);
     });
 }
@@ -190,7 +191,7 @@ function displayJson (responseJson) {
     resultString += `<p>${responseJson.data[i].fullName}</p>`
   }
 
-  $('.displaySearchResultsArea').append(resultString);
+  $('.displaySearchResultsArea').html(resultString);
 
 }
 
